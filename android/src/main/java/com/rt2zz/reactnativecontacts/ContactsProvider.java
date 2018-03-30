@@ -347,14 +347,6 @@ public class ContactsProvider {
             }
             contact.putArray("postalAddresses", postalAddresses);
 
-            WritableMap birthdayMap = Arguments.createMap();
-            if (birthday != null) {
-                birthdayMap.putInt("year", birthday.year);
-                birthdayMap.putInt("month", birthday.month);
-                birthdayMap.putInt("day", birthday.day);
-                contact.putMap("birthday", birthdayMap);
-            }
-
             return contact;
         }
 
