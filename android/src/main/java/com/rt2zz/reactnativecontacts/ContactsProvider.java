@@ -256,22 +256,7 @@ public class ContactsProvider {
                 contact.postalAddresses.add(new Contact.PostalAddressItem(cursor));
             } else if (mimeType.equals(Event.CONTENT_ITEM_TYPE)) {
                 int eventType = cursor.getInt(cursor.getColumnIndex(Event.TYPE));
-                if (eventType == Event.TYPE_BIRTHDAY) {
-                    String birthdayWithoutDoubleHypen = cursor.getString(cursor.getColumnIndex(Event.START_DATE)).replace("--", "");
-                    String birthday = birthdayWithoutDoubleHypen.replace(".", "-");
-                    String[] yearMonthDay = birthday.split("-");
-                    List<String> yearMonthDayList = Arrays.asList(yearMonthDay);
-                    if (yearMonthDayList.size() == 2) {
-                        int month = Integer.parseInt(yearMonthDayList.get(0));
-                        int day = Integer.parseInt(yearMonthDayList.get(1));
-                        contact.birthday = new Contact.Birthday(new Date(0).getYear(), month, day);
-                    } else {
-                        int year = Integer.parseInt(yearMonthDayList.get(0));
-                        int month = Integer.parseInt(yearMonthDayList.get(1));
-                        int day = Integer.parseInt(yearMonthDayList.get(2));
-                        contact.birthday = new Contact.Birthday(year, month, day);
-                    }
-                }
+                
             }
         }
 
@@ -317,7 +302,7 @@ public class ContactsProvider {
         private List<Item> emails = new ArrayList<>();
         private List<Item> phones = new ArrayList<>();
         private List<PostalAddressItem> postalAddresses = new ArrayList<>();
-        private Birthday birthday;
+
 
 
         public Contact(String contactId) {
@@ -380,18 +365,6 @@ public class ContactsProvider {
             public Item(String label, String value) {
                 this.label = label;
                 this.value = value;
-            }
-        }
-
-        public static class Birthday {
-            public int year = 0;
-            public int month = 0;
-            public int day = 0;
-
-            public Birthday(int year, int month, int day) {
-                this.year = year;
-                this.month = month;
-                this.day = day;
             }
         }
 
